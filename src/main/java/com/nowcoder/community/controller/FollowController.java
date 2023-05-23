@@ -1,7 +1,9 @@
 package com.nowcoder.community.controller;
 
+import com.nowcoder.community.entity.Event;
 import com.nowcoder.community.entity.Page;
 import com.nowcoder.community.entity.User;
+import com.nowcoder.community.event.EventProducer;
 import com.nowcoder.community.service.FollowService;
 import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.util.CommunityConstant;
@@ -26,6 +28,8 @@ public class FollowController implements CommunityConstant {
     private HostHolder hostHolder;
     @Autowired
     private UserService userService;
+    @Autowired
+    private EventProducer eventProducer;
 
     @RequestMapping(path = "/follow", method = RequestMethod.POST)
     @ResponseBody
@@ -33,7 +37,14 @@ public class FollowController implements CommunityConstant {
         User user = hostHolder.getUser();
 
         followService.follow(user.getId(), entityType, entityId);
-
+        //触发关注事件
+        Event event = new Event()
+                .setTopic(TOPIC_FOLLOW)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(entityType)
+                .setEntityId(entityId)
+                .setEntityUserId(entityId);
+        eventProducer.fireEvent(event);
         return CommunityUtil.getJSONString(0, "已关注!");
     }
 
@@ -59,14 +70,15 @@ public class FollowController implements CommunityConstant {
         page.setRows((int) followService.findFolloweeCount(userId, ENTITY_TYPE_USER));
         List<Map<String, Object>> userList = followService.findFollowees(userId, page.getOffset(), page.getLimit());
         if (userList != null) {
-            for(Map<String,Object> map: userList){
+            for (Map<String, Object> map : userList) {
                 User u = (User) map.get("user");
                 map.put("hasFollowed", hasFollowed(u.getId()));
             }
         }
-        model.addAttribute("users",userList);
+        model.addAttribute("users", userList);
         return "/site/followee";
     }
+
     @RequestMapping(path = "/followers/{userId}", method = RequestMethod.GET)
     public String getFollowers(@PathVariable("userId") int userId, Page page, Model model) {
         User user = userService.findUserById(userId);
@@ -90,6 +102,7 @@ public class FollowController implements CommunityConstant {
 
         return "/site/follower";
     }
+
     private boolean hasFollowed(int userId) {
         if (hostHolder.getUser() == null) {
             return false;
