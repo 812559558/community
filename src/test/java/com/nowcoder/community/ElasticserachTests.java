@@ -4,13 +4,11 @@ import com.nowcoder.community.dao.DiscussPostMapper;
 import com.nowcoder.community.dao.elasticsearch.DiscussPostRepository;
 import com.nowcoder.community.entity.DiscussPost;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
-import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.junit.Test;
@@ -51,15 +49,15 @@ public class ElasticserachTests {
     }
     @Test
     public void testInsertList(){
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(101,0,100));
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(102,0,100));
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(103,0,100));
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(111,0,100));
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(112,0,100));
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(131,0,100));
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(132,0,100));
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(133,0,100));
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(134,0,100));
+//        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(101,0,100, ));
+//        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(102,0,100, ));
+//        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(103,0,100, ));
+//        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(111,0,100, ));
+//        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(112,0,100, ));
+//        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(131,0,100, ));
+//        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(132,0,100, ));
+//        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(133,0,100, ));
+//        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(134,0,100, ));
 
     }
     @Test
