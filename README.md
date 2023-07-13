@@ -18,4 +18,4 @@
 
 <span style="color:blue;">Quartz, Caffenine(排行、上传、服务器缓存，@线程池，@缓存)</span>,
 
-![image-20230713113329166](H:\javaproject\community\README.assets\image-20230713113329166.png)
+![image-20230713113329166](./README.assets/image-20230713113329166.png)
